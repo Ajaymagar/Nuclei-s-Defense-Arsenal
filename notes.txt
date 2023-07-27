@@ -1,0 +1,4 @@
+kubectl create job --from=cronjob/nuclei-scan-cronjob nuclei-scan-manual
+
+manual trigger karne ke liye ye command use hoti he 
+

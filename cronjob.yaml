@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nuclei-scan-cronjob
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: nuclei-scan-container
+            image: ajaymagar/nuclei-docker:latest
+          restartPolicy: OnFailure

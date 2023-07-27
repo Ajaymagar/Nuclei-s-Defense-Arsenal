@@ -1,0 +1,8 @@
+http://juiceapp.default.svc.cluster.local:9000
+http://myapp.default.svc.cluster.local:8080
+http://myapi.default.svc.cluster.local:5000
+http://djangoboy.default.svc.cluster.local:8086
+
+
+
+
