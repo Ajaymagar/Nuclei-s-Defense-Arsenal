@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: juiceapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: juiceapp
+  template:
+    metadata:
+      labels:
+        app: juiceapp
+    spec:
+      containers:
+      - name: juiceapp
+        image: bkimminich/juice-shop
+        ports:
+        - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: juiceapp
+spec:
+  type: ClusterIP
+  selector:
+    app: juiceapp
+  ports:
+  - port: 9000
+    targetPort: 3000
