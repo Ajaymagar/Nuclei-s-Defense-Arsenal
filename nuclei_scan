@@ -1,14 +1,21 @@
 #!/bin/bash
 
 nuclei -update-templates
+
+# remove Unwanted Templates
 rm -rf /root/nuclei-templates/iot /root/nuclei-templates/token-spray  /root/nuclei-templates/network /root/nuclei-templates/miscellaneous /root/nuclei-templates/technologies  /root/nuclei-templates/dns /root/nuclei-templates/osint /root/nuclei-templates/misconfiguration/http-missing-security-headers.yaml  /root/nuclei-templates/cves/2016/CVE-2016-6210.yaml  /root/nuclei-templates/cves/2018/CVE-2018-15473.yaml  /root/nuclei-templates/cves/2017/CVE-2017-5487.yaml /root/nuclei-templates/ssl 
 rm -rf /root/nuclei-templates/http/iot /root/nuclei-templates/http/token-spray /root/nuclei-templates/http/network /root/nuclei-templates/http/miscellaneous /root/nuclei-templates/http/technologies /root/nuclei-templates/http/dns /root/nuclei-templates/http/osint
 
 echo "scan started" | notify -silent
 
+# Run Nuclei 
 nuclei -t /root/nuclei-templates -l ./urls.txt  --severity low,high,medium,critical -o nuclei.txt
 
+# send  Output to Discord
 cat nuclei.txt | notify -silent
+
+# remove file
+rm nuclei.txt
 
 echo "scan completed" | notify -silent
 
