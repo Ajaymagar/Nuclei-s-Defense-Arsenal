@@ -1,0 +1,22 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - main
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+      with:
+          project_id: yourProjectName
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Trigger the Job
+      run: |
+          gcloud container clusters get-credentials YourClusterName --region=RegionName
+          kubectl create job --from=cronjob/nuclei-scan-cronjob nuclei-scan-manual
